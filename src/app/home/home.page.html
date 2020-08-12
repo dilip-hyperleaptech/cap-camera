@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Camera Example
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab horizontal="center" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="selectImage()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <input type="file" *ngIf="isDesktop" #filePicker (change)="onFileChoose($event)"/>
+  
+  <ion-card *ngIf="photo">
+    <ion-card-content>
+      <img [src]="photo">
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-grid>
+    <div class="mt-3">
+      <ion-label class="ion-Label-font-style pl-2" position="stacked">Lookup Contact</ion-label>
+      <ion-input autocomplete="off" spellcheck="false" placeholder="Search by name or number" showCancelButton="focus"
+        clear-input (ionChange)="search($event)"></ion-input>
+    </div>
+  </ion-grid>
+
+  <ion-button (click)="loadContacts()" expand="full" class="ion-padding">Load Contacts</ion-button>
+
+  <ion-list *ngFor="let c of myContacts">
+    <ion-item>
+      <ion-label>{{ c.name.givenName }} <b>{{ c.name.familyName }}</b>
+        <p>
+          {{ c.phoneNumbers[ 0 ].value }}
+        </p>
+      </ion-label>
+    </ion-item>
+</ion-list>
+
+</ion-content>
